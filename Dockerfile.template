@@ -24,7 +24,7 @@ ADD /config/kapacitor.conf /etc/kapacitor/kapacitor.conf
 RUN mkdir -p /usr/src/app
 ADD /app /usr/src/app
 # Install the app requirements
-RUN pip install -r /app/requirements.txt
+RUN pip install -r /usr/src/app/requirements.txt
 
 # Change influxdb data to be stored in the persising partition
 RUN sed -i 's|/var/lib/influxdb|/data/influxdb|g' /etc/influxdb/influxdb.conf
