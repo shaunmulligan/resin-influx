@@ -32,7 +32,7 @@ RUN sed -i 's|/var/lib/influxdb|/data/influxdb|g' /etc/influxdb/influxdb.conf
 # Create configuration for supervisord
 RUN echo_supervisord_conf > /usr/local/etc/supervisord.conf && \
     echo "[include]" >> /usr/local/etc/supervisord.conf && \
-    echo "files = /app/supervisor/*.conf" >> /usr/local/etc/supervisord.conf
+    echo "files = /usr/src/app/supervisor/*.conf" >> /usr/local/etc/supervisord.conf
 
 # Finally, start our app
 CMD ["bash", "/usr/src/app/start.sh"]
