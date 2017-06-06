@@ -1,5 +1,5 @@
 FROM resin/%%RESIN_MACHINE_NAME%%-python
-MAINTAINER Kimmo Huoman <kipenroskaposti@gmail.com>
+MAINTAINER Jack Zampolin <jack@influxdb.com>
 
 # Install influxdb
 RUN wget -O /tmp/influxdb.deb https://dl.influxdata.com/influxdb/releases/influxdb_1.2.4_armhf.deb && \
@@ -16,8 +16,8 @@ RUN wget -O /tmp/chronograf.deb https://dl.influxdata.com/chronograf/releases/ch
     dpkg -i /tmp/chronograf.deb && rm /tmp/chronograf.deb
 
 # Install kapacitor
-RUN wget -O /tmp/influxdb.deb https://dl.influxdata.com/influxdb/releases/influxdb_1.2.4_armhf.deb && \
-    dpkg -i /tmp/influxdb.deb && rm /tmp/influxdb.deb
+RUN wget -O /tmp/kapacitor.deb https://dl.influxdata.com/kapacitor/releases/kapacitor_1.3.1_armhf.deb && \
+    dpkg -i /tmp/kapacitor.deb && rm /tmp/kapacitor.deb
 COPY /config/kapacitor.conf /etc/kapacitor/kapacitor.conf
 
 # Add app
