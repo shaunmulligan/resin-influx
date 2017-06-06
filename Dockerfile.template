@@ -2,12 +2,27 @@ FROM resin/%%RESIN_MACHINE_NAME%%-python
 MAINTAINER Kimmo Huoman <kipenroskaposti@gmail.com>
 
 # Install influxdb
-RUN wget -O /tmp/influxdb.deb https://dl.influxdata.com/influxdb/releases/influxdb_0.13.0_armhf.deb && \
+RUN wget -O /tmp/influxdb.deb https://dl.influxdata.com/influxdb/releases/influxdb_1.2.4_armhf.deb && \
     dpkg -i /tmp/influxdb.deb && rm /tmp/influxdb.deb
+COPY /config/influxdb.conf /etc/influxdb/influxdb.conf
+
+# Install telegraf
+RUN wget -O /tmp/telegraf.deb https://dl.influxdata.com/telegraf/releases/telegraf_1.3.1-1_armhf.deb && \
+    dpkg -i /tmp/telegraf.deb && rm /tmp/telegraf.deb
+COPY /config/telegraf.conf /etc/telegraf/telegraf.conf
+
+# Install chronograf
+RUN wget -O /tmp/chronograf.deb https://dl.influxdata.com/chronograf/releases/chronograf_1.3.2.1_armhf.deb && \
+    dpkg -i /tmp/chronograf.deb && rm /tmp/chronograf.deb
+
+# Install kapacitor
+RUN wget -O /tmp/influxdb.deb https://dl.influxdata.com/influxdb/releases/influxdb_1.2.4_armhf.deb && \
+    dpkg -i /tmp/influxdb.deb && rm /tmp/influxdb.deb
+COPY /config/kapacitor.conf /etc/kapacitor/kapacitor.conf
 
 # Add app
 RUN mkdir -p /usr/src/app
-ADD /app /usr/src/app
+COPY /app /usr/src/app
 # Install the app requirements
 RUN pip install -r /app/requirements.txt
 
