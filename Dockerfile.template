@@ -19,14 +19,14 @@ RUN wget -O /tmp/kapacitor.deb https://dl.influxdata.com/kapacitor/releases/kapa
 
 # Add app
 RUN mkdir -p /usr/src/app
-ADD /app /usr/src/app
+COPY /app /usr/src/app
 # Install the app requirements
 RUN pip install -r /usr/src/app/requirements.txt
 
 # Add the configuration files for TICK stack
-ADD /config/influxdb.conf /etc/influxdb/influxdb.conf
-ADD /config/telegraf.conf /etc/telegraf/telegraf.conf
-ADD /config/kapacitor.conf /etc/kapacitor/kapacitor.conf
+COPY /config/influxdb.conf /etc/influxdb/influxdb.conf
+COPY /config/telegraf.conf /etc/telegraf/telegraf.conf
+COPY /config/kapacitor.conf /etc/kapacitor/kapacitor.conf
 
 # Change influxdb data to be stored in the persising partition
 RUN sed -i 's|/var/lib/influxdb|/data/influxdb|g' /etc/influxdb/influxdb.conf
